@@ -38,7 +38,7 @@ namespace Get.the.solution.ui
                     Control FocusedControl = Controls.FirstOrDefault(c => c.FocusState!=FocusState.Unfocused);
                     if (FocusedControl == d)
                     {
-                        if (args.VirtualKey == Windows.System.VirtualKey.Enter)
+                        if (args.VirtualKey == Windows.System.VirtualKey.Enter || args.VirtualKey ==  Windows.System.VirtualKey.GamepadA)
                         {
                             ICommand Command = GetCommand(d);
 
