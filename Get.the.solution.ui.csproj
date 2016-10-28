@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataTemplateSelector.cs" />
+    <Compile Include="Debug.cs" />
     <Compile Include="DebugConverter.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="OnEnter.cs" />

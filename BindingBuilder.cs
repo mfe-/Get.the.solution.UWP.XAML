@@ -13,7 +13,7 @@ namespace Get.the.solution.ui
     public class BindingBuilder
     {
 
-
+        //TODO
         public static String GetBinding(DependencyObject obj)
         {
             return (String)obj.GetValue(BindingProperty);
