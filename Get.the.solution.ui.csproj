@@ -112,6 +112,7 @@
     <Compile Include="Debug.cs" />
     <Compile Include="DebugConverter.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="ItemsControl.cs" />
     <Compile Include="OnEnter.cs" />
     <Compile Include="OnEscape.cs" />
     <Compile Include="OnKeyDown.cs" />
