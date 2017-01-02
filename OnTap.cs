@@ -11,6 +11,22 @@ namespace Get.the.solution.ui
 {
     public class OnTap
     {
+
+        public static object GetCommandParameter(DependencyObject obj)
+        {
+            return (object)obj.GetValue(CommandParameterProperty);
+        }
+
+        public static void SetCommandParameter(DependencyObject obj, object value)
+        {
+            obj.SetValue(CommandParameterProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.RegisterAttached("CommandParameter", typeof(object), typeof(OnTap), new PropertyMetadata(null));
+
+
         public static ICommand GetRaiseCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(RaiseCommandProperty);
@@ -57,11 +73,19 @@ namespace Get.the.solution.ui
                     Touch = TouchSide.Right;
                 }
                 ICommand Command = GetRaiseCommand(Element);
+
+
+                object Param = Element.ReadLocalValue(OnTap.CommandParameterProperty);
+                if (DependencyProperty.UnsetValue != Param)
+                {
+                    Param = GetCommandParameter(Element);
+                }
+
                 if (Command != null)
                 {
-                    if(Command.CanExecute(Touch))
+                    if(Command.CanExecute(DependencyProperty.UnsetValue == Param ? Touch : Param))
                     {
-                        Command.Execute(Touch);
+                        Command.Execute(DependencyProperty.UnsetValue == Param ? Touch : Param);
                     }
                 }
             }
