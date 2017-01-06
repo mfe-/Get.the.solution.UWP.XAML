@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
 
 namespace Get.the.solution.ui
@@ -63,14 +64,14 @@ namespace Get.the.solution.ui
                 var type = e.PointerDeviceType.ToString();
                 var position = e.GetPosition(Element);
 
-                TouchSide Touch;
+                VirtualKey Touch;
                 if (position.X<(Element.ActualWidth/2))
                 {
-                    Touch = TouchSide.Left;
+                    Touch = VirtualKey.Left;
                 }
                 else
                 {
-                    Touch = TouchSide.Right;
+                    Touch = VirtualKey.Right;
                 }
                 ICommand Command = GetRaiseCommand(Element);
 

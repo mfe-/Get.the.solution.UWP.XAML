@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Devices.Input;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -58,18 +59,18 @@ namespace Get.the.solution.ui
                 FrameworkElement Element = sender as FrameworkElement;
                 var currentpoint = e.GetCurrentPoint(Element);
 
-                TouchSide Touch=TouchSide.Left;
+                VirtualKey Touch= VirtualKey.Left;
                 //minimum 70 px difference of swipe required
                 if (Math.Abs(currentpoint.Position.X - _StartinPoint.Position.X) >= 100)
                 {
 
                     if (_StartinPoint.Position.X > currentpoint.Position.X)
                     {
-                        Touch = TouchSide.Left;
+                        Touch = VirtualKey.Left;
                     }
                     else
                     {
-                        Touch = TouchSide.Right;
+                        Touch = VirtualKey.Right;
                     }
                     Swipe = true;
 
@@ -79,11 +80,11 @@ namespace Get.the.solution.ui
                 {
                     if (_StartinPoint.Position.Y < currentpoint.Position.Y)
                     {
-                        Touch = TouchSide.Down;
+                        Touch = VirtualKey.Down;
                     }
                     else
                     {
-                        Touch = TouchSide.Up;
+                        Touch = VirtualKey.Up;
                     }
                     Swipe = true;
                 }

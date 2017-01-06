@@ -124,7 +124,6 @@
     <Compile Include="BindingBuilder.cs" />
     <Compile Include="StringConverter.cs" />
     <Compile Include="ToStringConverter.cs" />
-    <Compile Include="TouchSide.cs" />
     <EmbeddedResource Include="Properties\Get.the.solution.ui.rd.xml" />
   </ItemGroup>
   <ItemGroup>
