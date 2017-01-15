@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     /// <summary>
     /// http://stackoverflow.com/questions/11857505/how-do-i-do-bindings-in-itemcontainerstyle-in-winrt

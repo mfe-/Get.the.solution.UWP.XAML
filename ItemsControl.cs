@@ -7,7 +7,7 @@ using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public static class ItemClickCommand
     {

@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public class OpenMenuFlyoutAction : DependencyObject, IAction
     {

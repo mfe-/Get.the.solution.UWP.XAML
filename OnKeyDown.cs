@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public class OnKeyDown
     {

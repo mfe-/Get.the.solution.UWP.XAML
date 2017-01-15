@@ -11,7 +11,7 @@ using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public class OnSwipe
     {

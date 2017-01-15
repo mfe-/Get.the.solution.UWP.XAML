@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using System.Reflection;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public class BaseDataTemplateSelector : DataTemplateSelector
     {

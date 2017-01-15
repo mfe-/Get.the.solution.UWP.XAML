@@ -6,7 +6,7 @@ using System.Linq;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public class OnBackRequested
     {

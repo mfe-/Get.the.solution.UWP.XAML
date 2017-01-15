@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public static class Helper
     {

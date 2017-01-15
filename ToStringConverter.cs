@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
-namespace Get.the.solution.ui
+namespace Get.the.solution.UWP.XAML
 {
     public class ToStringConverter : IValueConverter
     {
