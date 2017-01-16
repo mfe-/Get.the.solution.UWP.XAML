@@ -7,8 +7,8 @@
     <ProjectGuid>{F2AE0BDB-F74A-4017-8064-93B7AEF8EC25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Get.the.solution.ui</RootNamespace>
-    <AssemblyName>Get.the.solution.ui</AssemblyName>
+    <RootNamespace>Get.the.solution.UWP.XAML</RootNamespace>
+    <AssemblyName>Get.the.solution.UWP.XAML</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -114,6 +114,8 @@
     <Compile Include="Helper.cs" />
     <Compile Include="ItemsControl.cs" />
     <Compile Include="OnBackRequested.cs" />
+    <Compile Include="OnDel.cs" />
+    <Compile Include="OnDrag.cs" />
     <Compile Include="OnEnter.cs" />
     <Compile Include="OnEscape.cs" />
     <Compile Include="OnKeyDown.cs" />
