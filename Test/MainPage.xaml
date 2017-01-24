@@ -5,9 +5,12 @@
     xmlns:local="using:Get.the.solution.UWP.Test.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:Get.the.solution.UWP.XAML"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.DataContext>
+        <local:MainPageViewModel />
+    </Page.DataContext>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <ListBox xaml:OnDrag.Command="{Binding DragCommand}"></ListBox>
     </Grid>
 </Page>

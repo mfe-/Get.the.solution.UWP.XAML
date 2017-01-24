@@ -35,7 +35,7 @@ namespace Get.the.solution.UWP.XAML
                 dragablecontrol.AllowDrop = true;
                 dragablecontrol.DragEnter += Dragablecontrol_DragEnter;
                 dragablecontrol.DragStarting += Dragablecontrol_DragStarting;//does not get fired
-                dragablecontrol.DragOver += Dragablecontrol_DragOver;
+                dragablecontrol.DragOver += Dragablecontrol_DragOver; //e.AcceptedOperation got move, link, copy
                 dragablecontrol.Drop += Dragablecontrol_Drop;
             }
 
@@ -46,6 +46,7 @@ namespace Get.the.solution.UWP.XAML
             e.AcceptedOperation = DataPackageOperation.Move | DataPackageOperation.Link | DataPackageOperation.Copy;
             if (e.Data != null)
                 e.Data.RequestedOperation = DataPackageOperation.Move | DataPackageOperation.Link | DataPackageOperation.Copy;
+           
         }
 
         private static void Dragablecontrol_DragStarting(UIElement sender, DragStartingEventArgs args)
