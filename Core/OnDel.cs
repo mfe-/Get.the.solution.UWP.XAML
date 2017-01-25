@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Get.the.solution.UWP.XAML
 {
@@ -50,7 +51,7 @@ namespace Get.the.solution.UWP.XAML
                     IEnumerable<Control> Controls = Helper.FindVisualChildren<Control>(Window.Current.Content);
                     DependencyObject FocusedControl = Controls.FirstOrDefault(c => c.FocusState != FocusState.Unfocused);
                     //special behavior for listbox items 
-                    if (FocusedControl is ListBoxItem)
+                    if (FocusedControl is SelectorItem)
                     {
                         var childs = Helper.FindVisualChildren<DependencyObject>(FocusedControl);
                         FocusedControl = childs.FirstOrDefault(child => child == d);

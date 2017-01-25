@@ -29,16 +29,14 @@ namespace Get.the.solution.UWP.XAML
         private static void OnCommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UIElement dragablecontrol = d as UIElement;
-
             if (dragablecontrol != null)
             {
                 dragablecontrol.AllowDrop = true;
                 dragablecontrol.DragEnter += Dragablecontrol_DragEnter;
                 dragablecontrol.DragStarting += Dragablecontrol_DragStarting;//does not get fired
                 dragablecontrol.DragOver += Dragablecontrol_DragOver; //e.AcceptedOperation got move, link, copy
-                dragablecontrol.Drop += Dragablecontrol_Drop;
+                dragablecontrol.Drop += Dragablecontrol_Drop; //e.DataView.RequestedOperation is set none
             }
-
         }
 
         private static void Dragablecontrol_DragEnter(object sender, DragEventArgs e)
@@ -46,7 +44,6 @@ namespace Get.the.solution.UWP.XAML
             e.AcceptedOperation = DataPackageOperation.Move | DataPackageOperation.Link | DataPackageOperation.Copy;
             if (e.Data != null)
                 e.Data.RequestedOperation = DataPackageOperation.Move | DataPackageOperation.Link | DataPackageOperation.Copy;
-           
         }
 
         private static void Dragablecontrol_DragStarting(UIElement sender, DragStartingEventArgs args)
