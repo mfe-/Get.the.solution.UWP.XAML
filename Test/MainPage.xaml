@@ -10,7 +10,22 @@
     <Page.DataContext>
         <local:MainPageViewModel />
     </Page.DataContext>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
-        <ListBox xaml:OnDrag.Command="{Binding DragCommand}"></ListBox>
-    </Grid>
+    <Page.Resources>
+        <DataTemplate x:Key="asdf" x:DataType="local:Car">
+            <TextBlock Text="{Binding Path=Name}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="asdfasdf" x:DataType="local:Bike">
+            <TextBlock Text="{Binding Path=Name}"/>
+        </DataTemplate>
+    </Page.Resources>
+    <Page.Content>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+            <ListBox xaml:OnDrag.Command="{Binding DragCommand}" ItemsSource="{Binding Transports}">
+                <ListBox.ItemTemplateSelector>
+                    <xaml:BaseDataTemplateSelector></xaml:BaseDataTemplateSelector>
+                </ListBox.ItemTemplateSelector>
+            </ListBox>
+        </Grid>
+    </Page.Content>
+
 </Page>
