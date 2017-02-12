@@ -6,6 +6,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="XAML/ListBoxItem.xaml" />
         <ResourceDictionary Source="XAML/ListViewItem.xaml" />
+        <ResourceDictionary Source="XAML/MenuItem.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
