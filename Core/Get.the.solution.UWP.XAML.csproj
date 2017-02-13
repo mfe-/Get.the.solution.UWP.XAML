@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataTemplateSelector.cs" />
+    <Compile Include="Converter\FilenamePathShorterConverter.cs" />
     <Compile Include="Converter\StringToIntConverter.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="Converter\BooleanToInvertConverter.cs" />
