@@ -111,6 +111,7 @@
     <Compile Include="BaseDataTemplateSelector.cs" />
     <Compile Include="Converter\ImagePropertiesToStringConverter.cs" />
     <Compile Include="Converter\FilenamePathShorterConverter.cs" />
+    <Compile Include="Converter\StringAppendToStringConverter.cs" />
     <Compile Include="Converter\StringToIntConverter.cs" />
     <Compile Include="DeviceTypeHelper.cs" />
     <Compile Include="MenuItem.cs" />

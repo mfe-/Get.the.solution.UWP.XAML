@@ -11,7 +11,7 @@
 
     </Style>
     <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyle}">
-
+        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
     </Style>
     <Style TargetType="TextBox" BasedOn="{StaticResource BaseStyle}">
 
