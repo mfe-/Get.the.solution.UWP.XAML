@@ -125,6 +125,7 @@
     <Compile Include="OnDrag.cs" />
     <Compile Include="OnEnter.cs" />
     <Compile Include="OnEscape.cs" />
+    <Compile Include="OnFocus.cs" />
     <Compile Include="OnKeyDown.cs" />
     <Compile Include="OnSwipe.cs" />
     <Compile Include="OnTap.cs" />

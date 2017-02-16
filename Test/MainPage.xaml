@@ -20,7 +20,7 @@
     </Page.Resources>
     <Page.Content>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
-            <ListBox xaml:OnDrag.Command="{Binding DragCommand}" ItemsSource="{Binding Transports}">
+            <ListBox xaml:OnDrag.DropCommand="{Binding DragCommand}" ItemsSource="{Binding Transports}">
                 <ListBox.ItemTemplateSelector>
                     <xaml:BaseDataTemplateSelector></xaml:BaseDataTemplateSelector>
                 </ListBox.ItemTemplateSelector>
