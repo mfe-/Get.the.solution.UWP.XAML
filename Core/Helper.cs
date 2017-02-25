@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Media;
 
 namespace Get.the.solution.UWP.XAML
 {
+    /// <summary>
+    /// Provides additional methods like <see cref="Windows.UI.Xaml.Media.VisualTreeHelper"/>
+    /// </summary>
     public static class Helper
     {
         public static T FindParent<T>(this DependencyObject child) where T : DependencyObject
