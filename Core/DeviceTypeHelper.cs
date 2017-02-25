@@ -9,7 +9,8 @@ using Windows.UI.ViewManagement;
 namespace Get.the.solution.UWP.XAML
 {
     /// <summary>
-    /// https://gist.github.com/wagonli/40d8a31bd0d6f0dd7a5d
+    /// Provides DeviceType Informations
+    /// <see cref="https://gist.github.com/wagonli/40d8a31bd0d6f0dd7a5d"/>
     /// </summary>
     public static class DeviceTypeHelper
     {
