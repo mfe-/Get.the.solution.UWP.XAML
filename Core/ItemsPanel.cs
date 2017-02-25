@@ -22,9 +22,6 @@ namespace Get.the.solution.UWP.XAML
             {
                 var cellWidth = size.Height / Children.Count;
                 var childRect = new Rect(0, 0, cellWidth, cellWidth);
-
-          
-
                 foreach (var child in Children)
                 {
                     var omg= VisualTreeHelper.GetChild(child, 0);

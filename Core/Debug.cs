@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Get.the.solution.UWP.XAML
 {
+    /// <summary>
+    /// Display additional Information or provides methods for debugging
+    /// </summary>
     public class Debug
     {
         public static bool GetDisplayWindowSize(DependencyObject obj)
