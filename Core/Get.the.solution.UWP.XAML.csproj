@@ -133,7 +133,7 @@
     <Compile Include="OpenMenuFlyoutAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BindingBuilder.cs" />
-    <Compile Include="ToStringConverter.cs" />
+    <Compile Include="Converter\ToStringConverter.cs" />
     <EmbeddedResource Include="Properties\Get.the.solution.ui.rd.xml" />
   </ItemGroup>
   <ItemGroup>
