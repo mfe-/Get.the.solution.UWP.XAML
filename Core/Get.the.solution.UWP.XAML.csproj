@@ -108,6 +108,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppHelper.cs" />
     <Compile Include="BaseDataTemplateSelector.cs" />
     <Compile Include="Converter\ImagePropertiesToStringConverter.cs" />
     <Compile Include="Converter\FilenamePathShorterConverter.cs" />
