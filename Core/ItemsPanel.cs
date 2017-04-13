@@ -18,14 +18,23 @@ namespace Get.the.solution.UWP.XAML
         protected override Size ArrangeOverride(Size availableSize)
         {
             Size size = base.ArrangeOverride(availableSize);
+            Rect childRect = Rect.Empty;
             if (Children.Count > 0)
             {
-                var cellWidth = size.Height / Children.Count;
-                var childRect = new Rect(0, 0, cellWidth, cellWidth);
-                foreach (var child in Children)
+                double cellWidth = 0;
+                if (Orientation.Equals(Orientation.Horizontal))
                 {
-                    var omg= VisualTreeHelper.GetChild(child, 0);
-                    child.Arrange(childRect);
+                    cellWidth = size.Width / Children.Count;
+                    childRect = new Rect(0, 0, cellWidth, size.Height);
+                }
+                else
+                {
+                    cellWidth = size.Height / Children.Count;
+                    childRect = new Rect(0, 0, size.Width, cellWidth);
+                }
+                foreach (UIElement Child in Children)
+                {
+                    Child.Arrange(childRect);
                     if (Orientation.Equals(Orientation.Horizontal))
                     {
                         childRect.X += cellWidth;
@@ -34,8 +43,6 @@ namespace Get.the.solution.UWP.XAML
                     {
                         childRect.Y += cellWidth;
                     }
-                   
-      
                 }
 
             }

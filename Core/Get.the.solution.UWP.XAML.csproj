@@ -110,6 +110,8 @@
   <ItemGroup>
     <Compile Include="AppHelper.cs" />
     <Compile Include="BaseDataTemplateSelector.cs" />
+    <Compile Include="Dock.cs" />
+    <Compile Include="DockPanel.cs" />
     <Compile Include="Converter\ImagePropertiesToStringConverter.cs" />
     <Compile Include="Converter\FilenamePathShorterConverter.cs" />
     <Compile Include="Converter\StringAppendToStringConverter.cs" />
