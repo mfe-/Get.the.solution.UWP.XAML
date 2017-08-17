@@ -25,7 +25,7 @@ namespace Get.the.solution.UWP.XAML
 
         // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(OnEnter), new PropertyMetadata(null, OnCommandPropertyChanged));
+            DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(OnEscape), new PropertyMetadata(null, OnCommandPropertyChanged));
 
         private static void OnCommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -33,9 +33,9 @@ namespace Get.the.solution.UWP.XAML
             {
                 Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += (CoreDispatcher sender, AcceleratorKeyEventArgs args) =>
                 {
-                    IEnumerable<Control> Controls = Helper.FindVisualChildren<Control>(Window.Current.Content);
-                    Control FocusedControl = Controls.FirstOrDefault(c => c.FocusState != FocusState.Unfocused);
-                    if (FocusedControl == d)
+                    //IEnumerable<Control> Controls = Helper.FindVisualChildren<Control>(Window.Current.Content);
+                    //Control FocusedControl = Controls.FirstOrDefault(c => c.FocusState != FocusState.Unfocused);
+                    //if (FocusedControl == d)
                     {
                         if (args.VirtualKey == Windows.System.VirtualKey.Escape)
                         {

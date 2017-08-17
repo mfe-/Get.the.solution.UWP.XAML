@@ -11,6 +11,9 @@ using Windows.UI.Xaml.Data;
 
 namespace Get.the.solution.UWP.XAML
 {
+    /// <summary>
+    /// related to https://blog.magnusmontin.net/2017/03/25/uwp-implicit-data-template/ ?
+    /// </summary>
     public class BaseDataTemplateSelector : DataTemplateSelector
     {
         public BaseDataTemplateSelector()
