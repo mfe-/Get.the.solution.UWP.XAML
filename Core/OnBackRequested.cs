@@ -35,6 +35,7 @@ namespace Get.the.solution.UWP.XAML
         {
             if (d as UIElement != null)
             {
+                //TODO
                 if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
                 {
                     Windows.Phone.UI.Input.HardwareButtons.BackPressed += (s, args) =>
