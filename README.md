@@ -1,6 +1,8 @@
+
 # Get.the.solution.UWP.XAML
 UWP XAML Helper Stuff
 
+[<img src="https://ci.appveyor.com/api/projects/status/7dx8yid04xyw8jc8?svg=true">](https://ci.appveyor.com/project/mfe-/get-the-solution-uwp-xaml)
 
 Default XAML Style Dictionary for
 http://stackoverflow.com/questions/37336314/uwp-xaml-how-to-inherit-from-the-default-styles-using-basedon
