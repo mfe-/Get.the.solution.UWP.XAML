@@ -8,4 +8,6 @@ environment:
 build_script:
 - cmd: >-
     nuget.exe restore
+
+    
     msbuild Core\Get.the.solution.UWP.XAML.csproj  
