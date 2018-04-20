@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Get.the.solution.UWP.XAML</id>
+    <version>1.0.0</version>
+    <authors>Martin Fetzel</authors>
+    <owners>Martin Fetzel</owners>
+    <licenseUrl>https://github.com/mfe-/Get.the.solution.UWP.XAML/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/mfe-/Get.the.solution.UWP.XAML</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>UWP XAML Stuff</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>UWP XAML</tags>
+    <dependencies>
+      <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.0.8" />
+      <dependency id="Microsoft.Xaml.Behaviors.Uwp.Managed" version="2.0.0" />
+    </dependencies>
+  </metadata>
+</package>

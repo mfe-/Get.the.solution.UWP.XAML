@@ -20,3 +20,19 @@ build_script:
 
 
     msbuild Core\Get.the.solution.UWP.XAML.csproj  /property:Configuration=Release /property:Platform=ARM
+
+# scripts to run after build
+after_build:
+  - ps: .\pack.ps1
+
+# scripts to run after tests
+after_test:
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
+# provider names are case-sensitive!
+deploy:
+

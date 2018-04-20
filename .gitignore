@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+Get.the.solution.UWP.XAML.compiled.nuspec
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
