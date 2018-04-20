@@ -10,7 +10,7 @@ $content = $content -replace '\$version\$',$versionStr
 
 $content | Out-File $root\Get.the.solution.UWP.XAML.csproj.nuspec
 
-
+Write-Host  "$root\Get.the.solution.UWP.XAML.csproj.nuspec"
 Write-Host  $content
 
 # & $root\nuget.exe pack $root\Get.the.solution.UWP.XAML.csproj.nuspec
