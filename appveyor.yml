@@ -35,6 +35,7 @@ after_test:
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
 # https://ci.appveyor.com/tools/encrypt
+# https://www.appveyor.com/docs/deployment/nuget/
 deploy:
   provider: NuGet
   api_key:

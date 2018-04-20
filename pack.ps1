@@ -13,4 +13,7 @@ $content | Out-File $root\Get.the.solution.UWP.XAML.csproj.nuspec
 Write-Host  "$root\Get.the.solution.UWP.XAML.csproj.nuspec"
 Write-Host  $content
 
+& $root\Nuget.exe pack $root\Get.the.solution.UWP.XAML.csproj.nuspec
+
+
 # & $root\nuget.exe pack $root\Get.the.solution.UWP.XAML.csproj.nuspec
