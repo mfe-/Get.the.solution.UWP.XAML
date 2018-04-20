@@ -8,6 +8,9 @@ Write-Host "Setting .nuspec version tag to $versionStr"
 $content = (Get-Content $root\Get.the.solution.UWP.XAML.csproj.nuspec) 
 $content = $content -replace '\$version\$',$versionStr
 
-$content | Out-File $root\Get.the.solution.UWP.XAML.compiled.nuspec
+$content | Out-File $root\Get.the.solution.UWP.XAML.csproj.nuspec
 
-& $root\nuget.exe pack $root\Get.the.solution.UWP.XAML.compiled.nuspec
+
+Write-Host  $content
+
+# & $root\nuget.exe pack $root\Get.the.solution.UWP.XAML.csproj.nuspec
