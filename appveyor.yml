@@ -8,7 +8,9 @@ environment:
 
 build_script:
 - cmd: >-
-    %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+
+    rem "test"
 
 
     nuget.exe restore
