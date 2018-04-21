@@ -1,3 +1,4 @@
+# check https://dzone.com/articles/uwp-class-library-to-multi-architecture-nuget-pack
 version: 1.0.{build}
 image: Visual Studio 2017
 clone_depth: 1
@@ -7,6 +8,9 @@ environment:
 
 build_script:
 - cmd: >-
+    %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat
+
+
     nuget.exe restore
 
     
