@@ -36,6 +36,10 @@ build_script:
 after_build:
   - ps: .\pack.ps1
 
+
+  - cmd: >-
+    publish.cmd oTV9gUFj6oUVmuG7731mwbuMvXQ1yGNDGGxQkEJg4ZNiU6GnHpGO8EcCbUBOpBxA
+
 # scripts to run after tests
 after_test:
 
@@ -47,7 +51,8 @@ after_test:
 # provider names are case-sensitive!
 # https://ci.appveyor.com/tools/encrypt
 # https://www.appveyor.com/docs/deployment/nuget/
-deploy:
-- cmd: >-
-    publish.cmd oTV9gUFj6oUVmuG7731mwbuMvXQ1yGNDGGxQkEJg4ZNiU6GnHpGO8EcCbUBOpBxA
-
+# deploy:
+#   provider: NuGet
+#   api_key:
+#     secure: oTV9gUFj6oUVmuG7731mwbuMvXQ1yGNDGGxQkEJg4ZNiU6GnHpGO8EcCbUBOpBxA
+#   artifact: /.*\.nupkg/
