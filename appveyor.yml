@@ -48,6 +48,6 @@ after_test:
 # https://ci.appveyor.com/tools/encrypt
 # https://www.appveyor.com/docs/deployment/nuget/
 deploy:
-  cmd: >-
+- cmd: >-
     publish.cmd oTV9gUFj6oUVmuG7731mwbuMvXQ1yGNDGGxQkEJg4ZNiU6GnHpGO8EcCbUBOpBxA
 
