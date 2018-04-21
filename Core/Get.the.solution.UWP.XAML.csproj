@@ -169,7 +169,7 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\Get.the.solution.ui.rd.xml" />
+    <EmbeddedResource Include="Properties\Get.the.solution.ui.rd.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
