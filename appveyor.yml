@@ -30,6 +30,21 @@ build_script:
 
     msbuild Core\Get.the.solution.UWP.XAML.csproj  /property:Configuration=Release /property:Platform=ARM
 
+    cd bin
+
+    mkdir Release
+
+    cd ..\..
+
+    copy Core\bin\x86\Release\Get.the.solution.UWP.XAML.dll Core\bin\Release
+
+    copy Core\bin\x86\Release\Get.the.solution.UWP.XAML.pri Core\bin\Release
+
+    copy Core\bin\x86\Release\Get.the.solution.UWP.XAML.xr.xml Core\bin\Release
+
+    corflags.exe /32bitreq- Core\bin\Release\Get.the.solution.UWP.XAML.dll
+
+
 
 
 # scripts to run after build
