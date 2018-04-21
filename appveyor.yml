@@ -40,7 +40,7 @@ build_script:
     copy Core\bin\x86\Release\Get.the.solution.UWP.XAML.xr.xml Core\bin\Release
 
 
-    %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+    "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
 
 
     corflags.exe /32bitreq- Core\bin\Release\Get.the.solution.UWP.XAML.dll
