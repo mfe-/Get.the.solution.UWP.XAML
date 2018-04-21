@@ -37,8 +37,8 @@ after_build:
   - ps: .\pack.ps1
 
 
-  - cmd: >-
-    publish.cmd oTV9gUFj6oUVmuG7731mwbuMvXQ1yGNDGGxQkEJg4ZNiU6GnHpGO8EcCbUBOpBxA
+- cmd: >-
+    publish.cmd %my_secret%
 
 # scripts to run after tests
 # after_test:
