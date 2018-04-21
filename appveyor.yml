@@ -41,7 +41,7 @@ after_build:
     publish.cmd oTV9gUFj6oUVmuG7731mwbuMvXQ1yGNDGGxQkEJg4ZNiU6GnHpGO8EcCbUBOpBxA
 
 # scripts to run after tests
-after_test:
+# after_test:
 
 #---------------------------------#
 #     deployment configuration    #
