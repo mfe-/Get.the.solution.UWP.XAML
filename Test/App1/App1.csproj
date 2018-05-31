@@ -134,7 +134,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Get.the.solution.UWP.XAML.csproj">
+    <ProjectReference Include="..\..\Core\Get.the.solution.UWP.XAML.csproj">
       <Project>{2cac4c43-6ad1-4c7b-bc8e-db1cf14a7434}</Project>
       <Name>Get.the.solution.UWP.XAML</Name>
     </ProjectReference>

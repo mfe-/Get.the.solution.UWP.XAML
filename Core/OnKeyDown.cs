@@ -39,7 +39,7 @@ namespace Get.the.solution.UWP.XAML
         {
             if (d as UIElement != null)
             {
-                Window.Current.CoreWindow.KeyDown += (Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args) =>
+                Window.Current.CoreWindow.KeyDown += (CoreWindow sender, KeyEventArgs args) =>
                 {
                     if ((bool)GetCtrl(d) == true)
                     {
