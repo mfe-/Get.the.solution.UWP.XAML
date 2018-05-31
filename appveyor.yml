@@ -33,11 +33,11 @@ build_script:
 
     mkdir Core\bin\Release
 
-    copy Core\bin\x86\Release\Get.the.solution.UWP.XAML.dll Core\bin\Release
+    copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.dll Core\bin\Release
 
-    copy Core\bin\x86\Release\Get.the.solution.UWP.XAML.pri Core\bin\Release
+    copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.pri Core\bin\Release
 
-    copy Core\bin\x86\Release\Get.the.solution.UWP.XAML.xr.xml Core\bin\Release
+    copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML\Get.the.solution.UWP.XAML.xr.xml Core\bin\Release
 
 
     "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
