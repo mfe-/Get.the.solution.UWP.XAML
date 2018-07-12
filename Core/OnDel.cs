@@ -55,7 +55,6 @@ namespace Get.the.solution.UWP.XAML
                     {
                         var childs = Helper.FindVisualChildren<DependencyObject>(FocusedControl);
                         FocusedControl = childs.FirstOrDefault(child => child == d);
-
                     }
 
                     if (FocusedControl == d)
