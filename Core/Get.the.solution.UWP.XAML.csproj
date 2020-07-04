@@ -102,6 +102,7 @@
     <Compile Include="Converter\BooleanToInvertConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\FilenamePathShorterConverter.cs" />
+    <Compile Include="Converter\HexStringToSolidColorBrushConverter.cs" />
     <Compile Include="Converter\ImagePropertiesToStringConverter.cs" />
     <Compile Include="Converter\NavigationViewItemsConverter.cs" />
     <Compile Include="Converter\StoreFileToBitmapImageConverter.cs" />
