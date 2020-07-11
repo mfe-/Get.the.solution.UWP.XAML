@@ -127,6 +127,7 @@
     <Compile Include="OnKeyDown.cs" />
     <Compile Include="OnSwipe.cs" />
     <Compile Include="OnTap.cs" />
+    <Compile Include="OnTextChanged.cs" />
     <Compile Include="OpenMenuFlyoutAction.cs" />
     <Compile Include="PageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
