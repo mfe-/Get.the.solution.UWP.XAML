@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -12,9 +9,8 @@ namespace Get.the.solution.UWP.XAML.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if(value!=null && value as IEnumerable<MenuItem> !=null)
+            if (value is IEnumerable<MenuItem> menuItems)
             {
-                IEnumerable<MenuItem> menuItems = value as IEnumerable<MenuItem>;
                 List<NavigationViewItem> navigationViewItems = new List<NavigationViewItem>();
                 foreach (MenuItem item in menuItems)
                 {
@@ -22,9 +18,8 @@ namespace Get.the.solution.UWP.XAML.Converter
                 }
                 return navigationViewItems;
             }
-            else if(value != null && value as MenuItem != null)
+            else if (value is MenuItem menuItem)
             {
-                MenuItem menuItem = value as MenuItem;
                 return MenuItemToNavigationViewItem(menuItem);
             }
             return value;
@@ -34,7 +29,10 @@ namespace Get.the.solution.UWP.XAML.Converter
             MenuItem menuItem = new MenuItem();
             menuItem.Name = navigationViewItem.Content?.ToString();
             menuItem.PageType = navigationViewItem.Tag as Type;
-            menuItem.Icon = (navigationViewItem.Icon as SymbolIcon).Symbol;
+            if (navigationViewItem.Icon is SymbolIcon symbolIcon)
+            {
+                menuItem.Icon = symbolIcon.Symbol.ToString();
+            }
             return menuItem;
         }
         public NavigationViewItem MenuItemToNavigationViewItem(MenuItem menuItem)
@@ -42,15 +40,19 @@ namespace Get.the.solution.UWP.XAML.Converter
             NavigationViewItem navigationViewItem = new NavigationViewItem();
             navigationViewItem.Content = menuItem?.Name;
             navigationViewItem.Tag = menuItem?.PageType;
-            navigationViewItem.Icon = new SymbolIcon() { Symbol = menuItem.Icon };
+            Symbol symbol = Symbol.Accept;
+            if (menuItem != null)
+            {
+                Enum.TryParse<Symbol>(menuItem.Icon, out symbol);
+            }
+            navigationViewItem.Icon = new SymbolIcon() { Symbol = symbol };
             return navigationViewItem;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            if (value != null && value as NavigationViewItem != null)
+            if (value is NavigationViewItem navigationViewItem)
             {
-                NavigationViewItem navigationViewItem = value as NavigationViewItem;
                 return NavigationViewItemToMenuItem(navigationViewItem);
             }
             return value;
