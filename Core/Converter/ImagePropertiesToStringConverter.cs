@@ -9,26 +9,23 @@ using Windows.UI.Xaml.Data;
 
 namespace Get.the.solution.UWP.XAML.Converter
 {
-    public class ImagePropertiesToStringConverter : IValueConverter
+public class ImagePropertiesToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             ImageProperties ImageProperties = null;
             if (value == null) return String.Empty;
-            if (value.GetType().Equals(typeof(StorageFile)))
+            if (value is StorageFile storageFile)
             {
-                StorageFile StorageFile = value as StorageFile;
-                ImageProperties = StorageFile.Properties.GetImagePropertiesAsync().GetAwaiter().GetResult();
+                ImageProperties = storageFile.Properties.GetImagePropertiesAsync().GetAwaiter().GetResult();
             }
-            else if (value.GetType().Equals(typeof(StorageFile)))
+            else if (value is ImageProperties imageProperties)
             {
-                ImageProperties = value as ImageProperties;
+                ImageProperties = imageProperties;
             }
 
             if (ImageProperties != null)
             {
-                if (ImageProperties == null) return String.Empty;
-
                 return $"{ImageProperties.Width}x{ImageProperties.Height}";
             }
             else
