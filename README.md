@@ -20,6 +20,16 @@ Select text on focus
         <TextBox Header="Sample for select all for textboxes" 
                  Text="sample text"
                  common:OnFocus.SelectAll="True" />
+
+Allow only numbers in textbox and set "1" as default value
+
+        <TextBox  
+                 Text="{Binding Settings.HeightPercent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                 MaxLength="3" Width="70" 
+                 common:OnFocus.SelectAll="True" 
+                 InputScope="Number" 
+                 common:OnTextChanged.AllowOnlyDigit="True" 
+                 common:OnTextChanged.DefaultNumber="1">
 		 
 Execute command when user presses CTRL + C 	
 
