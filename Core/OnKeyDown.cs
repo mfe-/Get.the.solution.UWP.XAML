@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
+using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Get.the.solution.UWP.XAML
 {
@@ -35,13 +37,14 @@ namespace Get.the.solution.UWP.XAML
         /// </summary>
         /// <param name="d">The dependency object</param>
         /// <param name="e">Provides event related informations</param>
-        private static void OnCommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCommandPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            if (d as UIElement != null)
+            if (dependencyObject is UIElement uIElement)
             {
-                Window.Current.CoreWindow.KeyDown += (CoreWindow sender, KeyEventArgs args) =>
+                TypedEventHandler<CoreWindow, KeyEventArgs> typedEventHandler;
+                typedEventHandler = new TypedEventHandler<CoreWindow, KeyEventArgs>((CoreWindow sender, KeyEventArgs args) =>
                 {
-                    if ((bool)GetCtrl(d) == true)
+                    if ((bool)GetCtrl(uIElement) == true)
                     {
                         //exit current operation if the user didn't pressed Ctrl
                         if (CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control) == CoreVirtualKeyStates.None)
@@ -54,25 +57,43 @@ namespace Get.the.solution.UWP.XAML
                             return;
                         }
                     }
-                    object commandParameter = GetCommandParameter(d);
+                    object commandParameter = GetCommandParameter(uIElement);
                     //set default command parameter 
                     if (commandParameter == null)
                     {
                         commandParameter = args.VirtualKey;
                     }
-                    string key = $"{GetOnKey(d)}".ToUpper();
+                    string key = $"{GetOnKey(uIElement)}".ToUpper();
                     if (!string.IsNullOrEmpty(key))
                     {
                         VirtualKey virtualKey;
                         virtualKey = (VirtualKey)Enum.Parse(typeof(VirtualKey), key);
                         if (virtualKey != args.VirtualKey) return;
                     }
-                    ICommand Command = GetCommand(d);
+                    ICommand Command = GetCommand(uIElement);
                     if (Command != null && Command.CanExecute(commandParameter))
                     {
                         Command.Execute(commandParameter);
                     }
-                };
+                });
+                Page page = null;
+                if (uIElement is Page p)
+                {
+                    page = p;
+                }
+                else
+                {
+                    page = Helper.FindParent<Page>(uIElement);
+                }
+                if (page.Frame != null)
+                {
+                    page.Frame.Navigating += (object sender, Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs eargs) =>
+                    {
+                        Window.Current.CoreWindow.KeyDown -= typedEventHandler;
+                    };
+                }
+
+                Window.Current.CoreWindow.KeyDown += typedEventHandler;
             }
         }
 
