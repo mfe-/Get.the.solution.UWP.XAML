@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2015
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get.the.solution.UWP.XAML", "Core\Get.the.solution.UWP.XAML.csproj", "{2CAC4C43-6AD1-4C7B-BC8E-DB1CF14A7434}"
 EndProject
@@ -47,6 +47,8 @@ Global
 		{2CAC4C43-6AD1-4C7B-BC8E-DB1CF14A7434}.Release|x86.ActiveCfg = Release|x86
 		{2CAC4C43-6AD1-4C7B-BC8E-DB1CF14A7434}.Release|x86.Build.0 = Release|x86
 		{CEFA048C-83F4-4C4F-A7C8-F700B2A79B82}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CEFA048C-83F4-4C4F-A7C8-F700B2A79B82}.Debug|Any CPU.Build.0 = Debug|x86
+		{CEFA048C-83F4-4C4F-A7C8-F700B2A79B82}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{CEFA048C-83F4-4C4F-A7C8-F700B2A79B82}.Debug|ARM.ActiveCfg = Debug|ARM
 		{CEFA048C-83F4-4C4F-A7C8-F700B2A79B82}.Debug|ARM.Build.0 = Debug|ARM
 		{CEFA048C-83F4-4C4F-A7C8-F700B2A79B82}.Debug|ARM.Deploy.0 = Debug|ARM

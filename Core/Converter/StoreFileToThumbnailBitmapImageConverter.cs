@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Get.the.solution.UWP.XAML.Converter
 {
-    public class StoreFileToBitmapImageConverter : IValueConverter
+    public class StoreFileToThumbnailBitmapImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            StorageFile storeFile = value as StorageFile;
-            if (storeFile != null)
+            if (value is StorageFile storeFile)
             {
                 BitmapImage imageSource = StorageFileToBitmapImage(storeFile);
                 return imageSource;
