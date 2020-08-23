@@ -104,8 +104,10 @@
     <Compile Include="Converter\FilenamePathShorterConverter.cs" />
     <Compile Include="Converter\HexStringToSolidColorBrushConverter.cs" />
     <Compile Include="Converter\ImagePropertiesToStringConverter.cs" />
+    <Compile Include="Converter\IsObjectNullToVisibilityConverter.cs" />
     <Compile Include="Converter\NavigationViewItemsConverter.cs" />
     <Compile Include="Converter\StoreFileToBitmapImageConverter.cs" />
+    <Compile Include="Converter\StoreFileToThumbnailBitmapImageConverter.cs" />
     <Compile Include="Converter\StringAppendToStringConverter.cs" />
     <Compile Include="Converter\StringToIntConverter.cs" />
     <Compile Include="Converter\ToStringConverter.cs" />

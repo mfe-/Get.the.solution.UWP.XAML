@@ -28,6 +28,18 @@ Execute command when user presses CTRL + C
         common:OnKeyDown.OnKey="C"
         common:OnKeyDown.CommandParameter="foo"
 
+Execute command when user presses CTRL + o and retriev the pressed key as parameter in the command (CommandParameter needs to be empty)
+
+        common:OnKeyDown.Command="{Binding Path=CtrlOpenCommand}"
+        common:OnKeyDown.Ctrl="True"
+        common:OnKeyDown.OnKey="o"
+
+StoreageFile to image conveter
+
+        <Image x:Name="image"  CacheMode="BitmapCache"
+                       Source="{Binding Path=SelectedImage.StorageFile,UpdateSourceTrigger=PropertyChanged,
+                       Converter={StaticResource ResourceKey=StoreFileToBitmapImageConverter}}">
+
 MVVM Helper for opening context menu
 
         <Interactivity:Interaction.Behaviors>
