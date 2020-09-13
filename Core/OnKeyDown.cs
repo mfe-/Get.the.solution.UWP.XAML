@@ -87,12 +87,13 @@ namespace Get.the.solution.UWP.XAML
                 }
                 if (page.Frame != null)
                 {
+                    //deregister the event when navigating away
                     page.Frame.Navigating += (object sender, Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs eargs) =>
                     {
                         Window.Current.CoreWindow.KeyDown -= typedEventHandler;
                     };
                 }
-
+                //register the key down event
                 Window.Current.CoreWindow.KeyDown += typedEventHandler;
             }
         }
