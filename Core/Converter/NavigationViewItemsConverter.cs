@@ -21,6 +21,7 @@ namespace Get.the.solution.UWP.XAML.Converter
     /// </example>
     public class NavigationViewItemsConverter : IValueConverter
     {
+        private Type TargetTypSingle = null;
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             IEnumerable<MenuItem> menuItems1 = null;
@@ -67,13 +68,29 @@ namespace Get.the.solution.UWP.XAML.Converter
                 return MenuItemToNavigationViewItem(menuItem);
             }
         }
-        public MenuItem NavigationViewItemToMenuItem(NavigationViewItem navigationViewItem)
+        public object NavigationViewItemToMenuItem(NavigationViewItem navigationViewItem)
         {
-            MenuItem menuItem = new MenuItem();
-            menuItem.Name = navigationViewItem.Content?.ToString();
-            menuItem.PageType = navigationViewItem.Tag as Type;
-            menuItem.Icon = $"{(navigationViewItem.Icon as SymbolIcon).Symbol}";
-            return menuItem;
+            if (TargetTypSingle == null)
+            {
+                MenuItem menuItem = new MenuItem();
+                menuItem.Name = navigationViewItem.Content?.ToString();
+                menuItem.PageType = navigationViewItem.Tag as Type;
+                menuItem.Icon = $"{(navigationViewItem.Icon as SymbolIcon).Symbol}";
+                return menuItem;
+            }
+            else
+            {
+                object createdInstance = Activator.CreateInstance(TargetTypSingle);
+                PropertyInfo namePropertie;
+                PropertyInfo pageTypePropertie;
+                PropertyInfo iconPropertie;
+                CheckMenuItemType(createdInstance.GetType(), out namePropertie, out pageTypePropertie, out iconPropertie);
+                namePropertie.SetValue(createdInstance, navigationViewItem.Content?.ToString());
+                pageTypePropertie.SetValue(createdInstance, navigationViewItem.Tag as Type);
+                iconPropertie.SetValue(createdInstance, $"{(navigationViewItem.Icon as SymbolIcon).Symbol}");
+                return createdInstance;
+            }
+
         }
         public NavigationViewItem MenuItemToNavigationViewItem(MenuItem menuItem)
         {
@@ -104,6 +121,8 @@ namespace Get.the.solution.UWP.XAML.Converter
             enumerator.MoveNext();
             //get first menu item
             Type menuitemType = enumerator.Current.GetType();
+            //save the type for later (convertback)
+            TargetTypSingle = menuitemType;
             //check if all neccessary properties are available
             PropertyInfo namePropertie, pageTypePropertie, iconPropertie;
             CheckMenuItemType(menuitemType, out namePropertie, out pageTypePropertie, out iconPropertie);
