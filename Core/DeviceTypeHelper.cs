@@ -28,6 +28,8 @@ namespace Get.the.solution.UWP.XAML
                     return DeviceFormFactorType.IoT;
                 case "Windows.Team":
                     return DeviceFormFactorType.SurfaceHub;
+                case "Windows.Xbox":
+                    return DeviceFormFactorType.Xbox;
                 default:
                     return DeviceFormFactorType.Other;
             }
@@ -41,6 +43,7 @@ namespace Get.the.solution.UWP.XAML
         Tablet,
         IoT,
         SurfaceHub,
+        Xbox,
         Other
     }
 }
