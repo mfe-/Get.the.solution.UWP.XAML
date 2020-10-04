@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 
 namespace Get.the.solution.UWP.XAML
 {
     /// <summary>
-    /// Represents a MenuItem for the HamburgerMenu from the UWPToolkit
-    /// <seealso cref="https://developer.microsoft.com/en-us/windows/uwp-community-toolkit/controls/hamburgermenu"/>
+    /// Represents a MenuItem for the HamburgerMenu
     /// </summary>
     public class MenuItem : INotifyPropertyChanged
     {

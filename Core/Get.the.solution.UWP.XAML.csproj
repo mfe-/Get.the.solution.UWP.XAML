@@ -99,6 +99,7 @@
     <Compile Include="AppHelper.cs" />
     <Compile Include="BaseDataTemplateSelector.cs" />
     <Compile Include="BindingBuilder.cs" />
+    <Compile Include="DeviceTypeStateTrigger.cs" />
     <Compile Include="Converter\BooleanToInvertConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\FilenamePathShorterConverter.cs" />
@@ -117,7 +118,6 @@
     <Compile Include="Dock.cs" />
     <Compile Include="DockPanel.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="ItemsControl.cs" />
     <Compile Include="ItemsPanel.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="OnBackRequested.cs" />

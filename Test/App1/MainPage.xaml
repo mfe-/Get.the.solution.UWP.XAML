@@ -10,12 +10,35 @@
     common:OnKeyDown.Ctrl="True"
     common:OnKeyDown.OnKey="C"
     common:OnKeyDown.CommandParameter="foo"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=local:MainPageViewModel}">
     <Page.DataContext>
         <local:MainPageViewModel />
     </Page.DataContext>
     <common:DockPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <common:DeviceTypeStateTrigger TargetDeviceFamily="Desktop" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DeviceTyp.Text" Value="Windows Desktop" />
+                        <Setter Target="DeviceTyp.Foreground" Value="PaleGoldenrod" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <common:DeviceTypeStateTrigger TargetDeviceFamily="Xbox" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DeviceTyp.Text" Value="Xbox" />
+                        <Setter Target="DeviceTyp.Foreground" Value="Red" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <TextBlock x:Name="DeviceTyp" Text="" />
         <TextBox Header="Sample for select all for textboxes" 
                  Text="sample text"
                  common:OnFocus.SelectAll="True" />
