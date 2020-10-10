@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Devices.Input;
-using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
@@ -19,7 +14,6 @@ namespace Get.the.solution.UWP.XAML
         {
             return (ICommand)obj.GetValue(RaiseCommandProperty);
         }
-
         public static void SetRaiseCommand(DependencyObject obj, ICommand value)
         {
             obj.SetValue(RaiseCommandProperty, value);
@@ -30,11 +24,10 @@ namespace Get.the.solution.UWP.XAML
 
         private static void OnRaiseCommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d as UIElement != null)
+            if (d is UIElement uIElement)
             {
-                UIElement Element = (d as UIElement);
-                Element.AddHandler(UIElement.PointerEnteredEvent, new PointerEventHandler(Element_PointerEntered), true);
-                Element.AddHandler(UIElement.PointerExitedEvent, new PointerEventHandler(Element_PointerReleased), true);
+                uIElement.AddHandler(UIElement.PointerEnteredEvent, new PointerEventHandler(Element_PointerEntered), true);
+                uIElement.AddHandler(UIElement.PointerExitedEvent, new PointerEventHandler(Element_PointerReleased), true);
             }
         }
         public static bool PointerTypeSwipeAble(PointerDeviceType pointerDeviceType)
@@ -42,11 +35,16 @@ namespace Get.the.solution.UWP.XAML
             return pointerDeviceType == PointerDeviceType.Touch || pointerDeviceType == PointerDeviceType.Pen;
         }
         private static PointerPoint _StartinPoint;
+
+        public OnSwipe()
+        {
+        }
+
         private static void Element_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            if (PointerTypeSwipeAble(e.Pointer.PointerDeviceType) && sender as FrameworkElement != null)
+            if (sender is FrameworkElement frameworkElement && PointerTypeSwipeAble(e.Pointer.PointerDeviceType))
             {
-                FrameworkElement Element = sender as FrameworkElement;
+                FrameworkElement Element = frameworkElement;
                 _StartinPoint = e.GetCurrentPoint(Element);
             }
         }
@@ -54,12 +52,11 @@ namespace Get.the.solution.UWP.XAML
         {
             //TODO: werte 100 und 500 in zusätzliche AP auslagern und besser das ganze über winkel abschätzen ob left /right down up usw
             bool Swipe = false;
-            if (PointerTypeSwipeAble(e.Pointer.PointerDeviceType) && sender as FrameworkElement != null)
+            if (sender is FrameworkElement frameworkElement && PointerTypeSwipeAble(e.Pointer.PointerDeviceType))
             {
-                FrameworkElement Element = sender as FrameworkElement;
-                var currentpoint = e.GetCurrentPoint(Element);
+                var currentpoint = e.GetCurrentPoint(frameworkElement);
 
-                VirtualKey Touch= VirtualKey.Left;
+                VirtualKey Touch = VirtualKey.Left;
                 //minimum 70 px difference of swipe required
                 if (Math.Abs(currentpoint.Position.X - _StartinPoint.Position.X) >= 100)
                 {
@@ -90,12 +87,12 @@ namespace Get.the.solution.UWP.XAML
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("exit" +_StartinPoint.Position +" " + e.GetCurrentPoint((sender as FrameworkElement)).Position);
+                    System.Diagnostics.Debug.WriteLine("exit" + _StartinPoint.Position + " " + e.GetCurrentPoint((sender as FrameworkElement)).Position);
                 }
 
                 if (Swipe)
                 {
-                    ICommand Command = GetRaiseCommand(Element);
+                    ICommand Command = GetRaiseCommand(frameworkElement);
                     if (Command != null)
                     {
                         if (Command.CanExecute(Touch))
@@ -107,5 +104,4 @@ namespace Get.the.solution.UWP.XAML
             }
         }
     }
-
 }
