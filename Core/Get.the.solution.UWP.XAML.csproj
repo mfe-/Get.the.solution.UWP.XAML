@@ -11,7 +11,7 @@
     <AssemblyName>Get.the.solution.UWP.XAML</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -113,7 +113,7 @@
     <Compile Include="Converter\StringToIntConverter.cs" />
     <Compile Include="Converter\ToStringConverter.cs" />
     <Compile Include="Debug.cs" />
-    <Compile Include="DebugConverter.cs" />
+    <Compile Include="Converter\DebugConverter.cs" />
     <Compile Include="DeviceTypeHelper.cs" />
     <Compile Include="Dock.cs" />
     <Compile Include="DockPanel.cs" />
@@ -146,7 +146,7 @@
     <EmbeddedResource Include="Properties\Get.the.solution.ui.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.17134.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -86,12 +87,30 @@ namespace Get.the.solution.UWP.XAML
 
                 if (propertyChangedEventArgs.NewValue is bool b)
                 {
-                    textBox.PreviewKeyDown += TextBox_PreviewKeyDown;
+                    //> Windows 10 15063
+                    if (textBox.GetType().GetEvents().Any(a => a.Name == "PreviewKeyDown"))
+                    {
+                        textBox.PreviewKeyDown += TextBox_PreviewKeyDown;
+                    }
+                    else
+                    {
+                        //fallback to KeyDown
+                        textBox.KeyDown += TextBox_PreviewKeyDown;
+                    }
                     textBox.LostFocus += TextBox_LostFocus;
                 }
                 else
                 {
-                    textBox.PreviewKeyDown -= TextBox_PreviewKeyDown;
+                    //> Windows 10 15063
+                    if (textBox.GetType().GetEvents().Any(a => a.Name == "PreviewKeyDown"))
+                    {
+                        textBox.PreviewKeyDown -= TextBox_PreviewKeyDown;
+                    }
+                    else
+                    {
+                        //fallback to KeyDown
+                        textBox.KeyDown -= TextBox_PreviewKeyDown;
+                    }
                     textBox.LostFocus -= TextBox_LostFocus;
                 }
             }

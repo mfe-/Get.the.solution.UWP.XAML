@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:Get.the.solution.UWP.XAML"
+    xmlns:converter="using:Get.the.solution.UWP.XAML.Converter"
     common:OnKeyDown.Command="{Binding Path=CtrlOpenCommand}"
     common:OnKeyDown.Ctrl="True"
     common:OnKeyDown.OnKey="C"
@@ -15,6 +16,9 @@
     <Page.DataContext>
         <local:MainPageViewModel />
     </Page.DataContext>
+    <Page.Resources>
+        <converter:NavigationViewItemsConverter x:Key="NavigationViewItemsConverter" />
+    </Page.Resources>
     <common:DockPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -38,6 +42,16 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <NavigationView MenuItemsSource="{Binding Path=MenueItems,Converter={StaticResource NavigationViewItemsConverter}}">
+            <NavigationView.Content>
+                <TextBox 
+                    Width="100"
+                    Height="20"
+                    PlaceholderText="Only digits" 
+                    common:OnTextChanged.AllowOnlyDigit="True" 
+                    common:OnTextChanged.DefaultNumber="10"></TextBox>
+            </NavigationView.Content>
+        </NavigationView>
         <TextBlock x:Name="DeviceTyp" Text="" />
         <TextBox Header="Sample for select all for textboxes" 
                  Text="sample text"
@@ -45,6 +59,6 @@
         <TextBox Header="Sample two for select all for textboxes" 
                  Text="sample text"
                  common:OnFocus.SelectAll="True" />
-        
+
     </common:DockPanel>
 </Page>
