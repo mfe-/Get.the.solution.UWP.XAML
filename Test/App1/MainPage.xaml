@@ -11,6 +11,7 @@
     common:OnKeyDown.Ctrl="True"
     common:OnKeyDown.OnKey="C"
     common:OnKeyDown.CommandParameter="foo"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance Type=local:MainPageViewModel}">
     <Page.DataContext>
@@ -42,16 +43,17 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <NavigationView MenuItemsSource="{Binding Path=MenueItems,Converter={StaticResource NavigationViewItemsConverter}}">
-            <NavigationView.Content>
-                <TextBox 
+        <contract5Present:NavigationView contract5Present:MenuItemsSource="{Binding Path=MenueItems,Converter={StaticResource NavigationViewItemsConverter}}">
+            <contract5Present:NavigationView.Content>
+                <contract5Present:TextBox
                     Width="100"
                     Height="20"
                     PlaceholderText="Only digits" 
                     common:OnTextChanged.AllowOnlyDigit="True" 
-                    common:OnTextChanged.DefaultNumber="10"></TextBox>
-            </NavigationView.Content>
-        </NavigationView>
+                    common:OnTextChanged.DefaultNumber="10">
+                </contract5Present:TextBox>
+            </contract5Present:NavigationView.Content>
+        </contract5Present:NavigationView>
         <TextBlock x:Name="DeviceTyp" Text="" />
         <TextBox Header="Sample for select all for textboxes" 
                  Text="sample text"
