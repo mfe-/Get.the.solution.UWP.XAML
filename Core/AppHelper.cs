@@ -27,7 +27,10 @@ namespace Get.the.solution.UWP.XAML
             var osVersion = $"{major}.{minor}.{build}.{revision}";
             return osVersion;
         }
-
+        public static ulong GetWindowsBuildNumber()
+        {
+            return GetWindowsBuildNumber(GetWindowsDeviceVersion());
+        }
         public static ulong GetWindowsBuildNumber(ulong version)
         {
             return (version & 0x00000000FFFF0000L) >> 16;
