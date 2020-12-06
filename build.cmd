@@ -11,6 +11,7 @@ msbuild Core\Get.the.solution.UWP.XAML.csproj  /property:Configuration=Release /
 mkdir Core\bin\Release
 mkdir Core\bin\Debug
 
+
 copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.dll Core\bin\Release
 copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.pdb Core\bin\Debug
 
@@ -20,6 +21,8 @@ copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML\Get.the.solution.UWP.XAML
 
 
 rem "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+
+rem https://docs.microsoft.com/en-us/nuget/guides/create-uwp-packages
 
 
 corflags.exe /32bitreq- Core\bin\Release\Get.the.solution.UWP.XAML.dll
