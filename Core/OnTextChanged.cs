@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation.Metadata;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -94,7 +94,8 @@ namespace Get.the.solution.UWP.XAML
                 if (propertyChangedEventArgs.NewValue is bool b)
                 {
                     //> Windows 10 15063 doesnt support PreviewKeyDown so we need to register the event with reflection
-                    if (textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
+                    if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5) &&
+                        textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
                     {
                         registerEventFunc = Helper.RegisterEventDynamically(textBox, nameof(TextBox.PreviewKeyDown), actionHandler);
                         WindowsRuntimeMarshal.AddEventHandler(registerEventFunc.Item1, registerEventFunc.Item2, actionHandler);
@@ -108,7 +109,8 @@ namespace Get.the.solution.UWP.XAML
                 }
                 else
                 {
-                    if (textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
+                    if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5) && 
+                        textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
                     {
                         //remove handle is untested yet
                         if (registerEventFunc != null)

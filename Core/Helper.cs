@@ -21,9 +21,9 @@ namespace Get.the.solution.UWP.XAML
         /// <param name="eventname">for example KeyDown</param>
         /// <param name="methodToFireOnEvent">the function which should be fired when the proper event occours</param>
         /// <returns></returns>
-        public static Tuple<Func<object, EventRegistrationToken>, Action<EventRegistrationToken>, Action<object, object>> RegisterEventDynamically(object sourceInstance, string eventname, Action<object, object> methodToFireOnEvent, bool registerEvent = false)
+        public static Tuple<Func<object, EventRegistrationToken>, Action<EventRegistrationToken>, Action<object, object>> RegisterEventDynamically(UIElement sourceInstance, string eventname, Action<object, object> methodToFireOnEvent, bool registerEvent = false)
         {
-            object AssociatedObject = sourceInstance;
+            UIElement AssociatedObject = sourceInstance;
             EventInfo eventInfo = sourceInstance.GetType().GetRuntimeEvent(eventname);
 
             MethodInfo addMethod = eventInfo.AddMethod;

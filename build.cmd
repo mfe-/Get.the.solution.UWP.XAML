@@ -9,8 +9,10 @@ msbuild Core\Get.the.solution.UWP.XAML.csproj  /property:Configuration=Release /
 msbuild Core\Get.the.solution.UWP.XAML.csproj  /property:Configuration=Release /property:Platform=x86
 msbuild Core\Get.the.solution.UWP.XAML.csproj  /property:Configuration=Release /property:Platform=ARM
 mkdir Core\bin\Release
+mkdir Core\bin\Debug
 
 copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.dll Core\bin\Release
+copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.pdb Core\bin\Debug
 
 copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.pri Core\bin\Release
 
