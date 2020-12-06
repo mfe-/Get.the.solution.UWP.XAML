@@ -44,7 +44,8 @@
                  common:OnFocus.SelectAll="True" />
         <TextBox Header="Sample two for select all for textboxes" 
                  Text="sample text"
-                 common:OnFocus.SelectAll="True" />
+                 common:OnFocus.SelectAll="True"
+                 common:OnTextChanged.AllowOnlyDigit="True"/>
         
     </common:DockPanel>
 </Page>

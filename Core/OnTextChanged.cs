@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Get.the.solution.UWP.XAML
 {
@@ -83,15 +87,39 @@ namespace Get.the.solution.UWP.XAML
                         }
                     }
                 }
-
+                KeyEventHandler keyEventHandler = TextBox_PreviewKeyDown;
+                Action<object, object> actionHandler = (s, e) => TextBox_PreviewKeyDown(s, e as KeyRoutedEventArgs);
+                Tuple<Func<object, EventRegistrationToken>, Action<EventRegistrationToken>, Action<object, object>> registerEventFunc = null;
+                
                 if (propertyChangedEventArgs.NewValue is bool b)
                 {
-                    textBox.PreviewKeyDown += TextBox_PreviewKeyDown;
+                    //> Windows 10 15063 doesnt support PreviewKeyDown so we need to register the event with reflection
+                    if (textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
+                    {
+                        registerEventFunc = Helper.RegisterEventDynamically(textBox, nameof(TextBox.PreviewKeyDown), actionHandler);
+                        WindowsRuntimeMarshal.AddEventHandler(registerEventFunc.Item1, registerEventFunc.Item2, actionHandler);
+                    }
+                    else
+                    {
+                        textBox.KeyDown += keyEventHandler;
+                    }
+
                     textBox.LostFocus += TextBox_LostFocus;
                 }
                 else
                 {
-                    textBox.PreviewKeyDown -= TextBox_PreviewKeyDown;
+                    if (textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
+                    {
+                        //remove handle is untested yet
+                        if (registerEventFunc != null)
+                        {
+                            WindowsRuntimeMarshal.RemoveEventHandler(registerEventFunc.Item2, actionHandler);
+                        }
+                    }
+                    else
+                    {
+                        textBox.KeyDown -= keyEventHandler;
+                    }
                     textBox.LostFocus -= TextBox_LostFocus;
                 }
             }

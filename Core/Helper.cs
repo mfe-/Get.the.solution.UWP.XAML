@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -13,6 +14,40 @@ namespace Get.the.solution.UWP.XAML
     /// </summary>
     public static class Helper
     {
+        /// <summary>
+        /// Register an event dynamically by creating the required add and remove functions for <seealso cref="WindowsRuntimeMarshal.AddEventHandler{T}(Func{T, EventRegistrationToken}, Action{EventRegistrationToken}, T)"/> and <seealso cref="WindowsRuntimeMarshal.RemoveEventHandler{T}(Action{EventRegistrationToken}, T)"/>
+        /// </summary>
+        /// <param name="sourceInstance">for example textbox</param>
+        /// <param name="eventname">for example KeyDown</param>
+        /// <param name="methodToFireOnEvent">the function which should be fired when the proper event occours</param>
+        /// <returns></returns>
+        public static Tuple<Func<object, EventRegistrationToken>, Action<EventRegistrationToken>, Action<object, object>> RegisterEventDynamically(object sourceInstance, string eventname, Action<object, object> methodToFireOnEvent, bool registerEvent = false)
+        {
+            object AssociatedObject = sourceInstance;
+            EventInfo eventInfo = sourceInstance.GetType().GetRuntimeEvent(eventname);
+
+            MethodInfo addMethod = eventInfo.AddMethod;
+            MethodInfo removeMethod = eventInfo.RemoveMethod;
+            //contains the handler as parameter
+            ParameterInfo[] addParameters = addMethod.GetParameters();
+            //get the delegatetype of the event
+            Type delegateType = addParameters[0].ParameterType;
+            Action<object, object> handler = (s, e) => methodToFireOnEvent(s, e);
+            MethodInfo handlerInvoke = typeof(Action<object, object>).GetRuntimeMethod("Invoke", new[] { typeof(object), typeof(object) });
+            Delegate @delegate = handlerInvoke.CreateDelegate(delegateType, handler);
+
+            EventRegistrationToken add(object a) => (EventRegistrationToken)addMethod.Invoke(AssociatedObject, new object[] { @delegate });
+            void remove(EventRegistrationToken t) => removeMethod.Invoke(AssociatedObject, new object[] { t });
+
+            if (registerEvent)
+            {
+                WindowsRuntimeMarshal.AddEventHandler(add, remove, handler);
+
+            }
+
+            return new Tuple<Func<object, EventRegistrationToken>, Action<EventRegistrationToken>, Action<object, object>>(add, remove, handler);
+        }
+
         public static T FindParent<T>(this DependencyObject child) where T : DependencyObject
         {
             //get parent item
