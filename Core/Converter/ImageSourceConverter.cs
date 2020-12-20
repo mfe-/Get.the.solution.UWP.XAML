@@ -1,15 +1,21 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Get.the.solution.UWP.XAML.Converter
 {
-    public class StoreFileToBitmapImageConverter : DependencyObject, IValueConverter
+    /// <summary>
+    /// Converts <seealso cref="Stream"/>, <seealso cref="StorageFile"/> to an ImageSource for the <seealso cref="Windows.UI.Xaml.Controls.Image"/>
+    /// </summary>
+    public class ImageSourceConverter : DependencyObject, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -20,13 +26,13 @@ namespace Get.the.solution.UWP.XAML.Converter
             }
             if (value is StorageFile storeFile)
             {
-                BitmapImage = StorageFileToBitmapImage(storeFile, disposeFileStreamAfterBitmap);
-                return BitmapImage;
+                ImageSource = StorageFileToImageSource(storeFile, disposeFileStreamAfterBitmap);
+                return ImageSource;
             }
             if (value is Stream stream)
             {
-                BitmapImage = StreamToBitmapImage(stream, disposeFileStreamAfterBitmap);
-                return BitmapImage;
+                ImageSource = StreamToImageSource(stream, disposeFileStreamAfterBitmap);
+                return ImageSource;
             }
             return null;
         }
@@ -39,8 +45,17 @@ namespace Get.the.solution.UWP.XAML.Converter
 
         // Using a DependencyProperty as the backing store for DownloadProgressCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DownloadProgressCommandProperty =
-            DependencyProperty.Register("DownloadProgressCommand", typeof(ICommand), typeof(StoreFileToBitmapImageConverter), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(DownloadProgressCommand), typeof(ICommand), typeof(ImageSourceConverter), new PropertyMetadata(null));
 
+        public ICommand ImageOpenedCommand
+        {
+            get { return (ICommand)GetValue(ImageOpenedCommandProperty); }
+            set { SetValue(ImageOpenedCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ImageOpenedCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageOpenedCommandProperty =
+            DependencyProperty.Register(nameof(ImageOpenedCommand), typeof(ICommand), typeof(ImageSourceConverter), new PropertyMetadata(null));
 
         public IRandomAccessStream RandomAccessStream
         {
@@ -50,21 +65,26 @@ namespace Get.the.solution.UWP.XAML.Converter
 
         // Using a DependencyProperty as the backing store for RandomAccessStream.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RandomAccessStreamProperty =
-            DependencyProperty.Register("RandomAccessStream", typeof(IRandomAccessStream), typeof(StoreFileToBitmapImageConverter), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(RandomAccessStream), typeof(IRandomAccessStream), typeof(ImageSourceConverter), new PropertyMetadata(null));
 
-        public BitmapImage BitmapImage
+        public ImageSource ImageSource
         {
-            get { return (BitmapImage)GetValue(BitmapImageProperty); }
-            set { SetValue(BitmapImageProperty, value); }
+            get { return (ImageSource)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for BitmapImage.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BitmapImageProperty =
-            DependencyProperty.Register("BitmapImage", typeof(BitmapImage), typeof(StoreFileToBitmapImageConverter), new PropertyMetadata(null));
+        public static readonly DependencyProperty ImageSourceProperty =
+            DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(ImageSourceConverter), new PropertyMetadata(null));
 
+        public async Task<ImageSource> SoftwareBitmapToBitmapImageAsync(SoftwareBitmap softwareBitmap, bool dispose = true)
+        {
+            var softwareBitmapSourcesource = new SoftwareBitmapSource();
+            await softwareBitmapSourcesource.SetBitmapAsync(softwareBitmap);
+            return softwareBitmapSourcesource;
+        }
 
-
-        public BitmapImage StreamToBitmapImage(Stream stream, bool dispose = true)
+        public ImageSource StreamToImageSource(Stream stream, bool dispose = true)
         {
             try
             {
@@ -73,10 +93,7 @@ namespace Get.the.solution.UWP.XAML.Converter
                     stream.Position = 0;
                 }
                 RandomAccessStream = stream.AsRandomAccessStream();
-                // Set the image source to the selected bitmap 
-                BitmapImage bitmapImage = ToBitmapImage(RandomAccessStream);
-                if (dispose) RandomAccessStream.Dispose();
-                return bitmapImage;
+                return RandomAccessStreamToBitmapImage(RandomAccessStream, dispose);
 
             }
             catch (Exception e)
@@ -85,16 +102,27 @@ namespace Get.the.solution.UWP.XAML.Converter
             }
             return null;
         }
-
-        public BitmapImage StorageFileToBitmapImage(StorageFile savedStorageFile, bool dispose = true)
+        public ImageSource RandomAccessStreamToBitmapImage(IRandomAccessStream randomAccessStream, bool dispose = true)
+        {
+            try
+            {
+                // Set the image source to the selected bitmap 
+                ImageSource bitmapImage = ToBitmapImage(randomAccessStream);
+                if (dispose) RandomAccessStream.Dispose();
+                return bitmapImage;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            return null;
+        }
+        public ImageSource StorageFileToImageSource(StorageFile savedStorageFile, bool dispose = true)
         {
             try
             {
                 RandomAccessStream = savedStorageFile.OpenAsync(FileAccessMode.Read).AsTask().Result;
-                // Set the image source to the selected bitmap 
-                BitmapImage bitmapImage = ToBitmapImage(RandomAccessStream);
-                if (dispose) RandomAccessStream.Dispose();
-                return bitmapImage;
+                return RandomAccessStreamToBitmapImage(RandomAccessStream, dispose);
             }
             catch (Exception e)
             {
@@ -103,21 +131,25 @@ namespace Get.the.solution.UWP.XAML.Converter
             return null;
         }
 
-        private BitmapImage ToBitmapImage(IRandomAccessStream fileStream)
+        private ImageSource ToBitmapImage(IRandomAccessStream fileStream)
         {
             BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.CreateOptions = BitmapCreateOptions.None;
             bitmapImage.DownloadProgress += BitmapImage_DownloadProgress;
             bitmapImage.ImageOpened += BitmapImage_ImageOpened;
             bitmapImage.SetSource(fileStream);
             return bitmapImage;
         }
 
-        private static void BitmapImage_ImageOpened(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void BitmapImage_ImageOpened(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (sender is BitmapImage bitmap)
             {
                 bitmap.ImageOpened -= BitmapImage_ImageOpened;
             }
+
+
+            ImageOpenedCommand?.Execute(sender);
         }
 
         private void BitmapImage_DownloadProgress(object sender, DownloadProgressEventArgs e)
