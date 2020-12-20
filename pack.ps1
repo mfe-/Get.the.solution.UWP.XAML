@@ -2,9 +2,10 @@ $root = (split-path -parent $MyInvocation.MyCommand.Definition)
 Write-Host  "$root\Core\bin\x64\Release\Get.the.solution.UWP.XAML.dll"
 $version = [System.Reflection.Assembly]::LoadFile("$root\Core\bin\x64\Release\Get.the.solution.UWP.XAML.dll").GetName().Version
 Write-Host "extracted $version"
-#$versionStr = "{0}.{1}.{2}" -f ($version.Major, $version.Minor, $version.Build)
-#Write-Host "Setting .nuspec version tag to $versionStr"
-
+$commit = git rev-parse HEAD;
+$xml = [xml](Get-Content("Get.the.solution.UWP.XAML.csproj.nuspec"))
+$xml.package.metadata.repository.commit="$commit";
+$xml.Save("Get.the.solution.UWP.XAML.csproj.nuspec")
 & $root\nuget.exe pack Get.the.solution.UWP.XAML.csproj.nuspec -properties version=$version 
 
 
