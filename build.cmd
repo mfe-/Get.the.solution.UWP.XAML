@@ -13,7 +13,7 @@ mkdir Core\bin\Debug
 
 
 copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.dll Core\bin\Release
-rem /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.pdb Core\bin\Debug
+copy /Y Core\bin\x86\Debug\Get.the.solution.UWP.XAML.pdb Core\bin\Debug
 
 copy /Y Core\bin\x86\Release\Get.the.solution.UWP.XAML.pri Core\bin\Release
 
