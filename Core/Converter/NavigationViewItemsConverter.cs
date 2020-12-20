@@ -17,7 +17,7 @@ namespace Get.the.solution.UWP.XAML.Converter
     ///                 MenuItemsSource="{Binding Path=Items,Converter={StaticResource NavigationViewItemsConverter}}"
     ///                 SelectedItem="{Binding 
     ///                 Path=SelectedMenuItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,
-    ///                 Converter={StaticResource NavigationViewItemsConverter}}">
+    ///                 Converter={StaticResource NavigationViewItemsConverter}}" />
     /// </example>
     public class NavigationViewItemsConverter : IValueConverter
     {
