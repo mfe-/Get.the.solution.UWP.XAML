@@ -68,7 +68,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nupkg
-          path: artifacts/*.nupkg
+          path: |
+            artifacts/*.nupkg
+            artifacts/*.snupkg
 
       # Publish from master and v* tags using the configured trusted-publishing policy.
       - name: NuGet login
@@ -82,9 +84,10 @@ jobs:
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
         shell: pwsh
         run: |
-          $packages = @(Get-ChildItem artifacts -Filter *.nupkg)
-          if ($packages.Count -ne 1) {
-            throw 'Expected exactly one .nupkg file in artifacts.'
+          $package = @(Get-ChildItem artifacts -Filter *.nupkg)
+          $symbolPackage = @(Get-ChildItem artifacts -Filter *.snupkg)
+          if ($package.Count -ne 1 -or $symbolPackage.Count -ne 1) {
+            throw 'Expected exactly one .nupkg and one .snupkg file in artifacts.'
           }
-          $package = $packages[0]
-          dotnet nuget push $package.FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://www.nuget.org/api/v2/package --skip-duplicate --verbosity normal
+          dotnet nuget push $package[0].FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://www.nuget.org/api/v2/package --skip-duplicate
+          dotnet nuget push $symbolPackage[0].FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://www.nuget.org/api/v2/package --skip-duplicate

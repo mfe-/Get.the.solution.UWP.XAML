@@ -11,7 +11,25 @@
     <Platforms>AnyCPU;x86;x64;arm64</Platforms>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>Get.the.solution.UWP.XAML</AssemblyTitle>
+    <AssemblyDescription>UWP XAML Stuff</AssemblyDescription>
+    <AssemblyProduct>Get.the.solution.UWP.XAML</AssemblyProduct>
+    <AssemblyCopyright>Copyright ©  2018-2020</AssemblyCopyright>
+    <AssemblyVersion>21.01.16.0</AssemblyVersion>
+    <FileVersion>21.01.16.0</FileVersion>
+    <ComVisible>false</ComVisible>
+    <IncludeSourceRevisionInInformationalVersion>true</IncludeSourceRevisionInInformationalVersion>
+    <Deterministic>true</Deterministic>
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <RepositoryUrl>https://github.com/mfe-/Get.the.solution.UWP.XAML</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <!-- Excluded during .NET 10 UWP migration (not used by ResizeImage):
@@ -20,6 +38,11 @@
   <ItemGroup>
     <Compile Remove="OpenMenuFlyoutAction.cs" />
     <Compile Remove="OnBackRequested.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
