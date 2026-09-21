@@ -20,10 +20,23 @@ namespace App1
                 ,new MenuItem() { Name = "Page 2"}
             };
 
-            string s = AppHelper.GetWindowsVersion();
-            string l = AppHelper.GetWindowsBuildNumber(AppHelper.GetWindowsDeviceVersion()).ToString();
+            _WindowsVersion = AppHelper.GetWindowsVersion();
+            _BuildNumber = AppHelper.GetWindowsBuildNumber(AppHelper.GetWindowsDeviceVersion()).ToString();
         }
 
+        private string _WindowsVersion;
+
+        public string WindowsVersion
+        {
+            get { return _WindowsVersion; }
+            set { _WindowsVersion = value; }
+        }
+
+        private string _BuildNumber;
+        public string BuildNumber
+        {
+            get { return _BuildNumber; }
+        }
 
         private List<MenuItem> _MenueItems;
         public List<MenuItem> MenueItems

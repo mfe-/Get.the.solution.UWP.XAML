@@ -58,16 +58,13 @@ namespace Get.the.solution.UWP.XAML.Converter
             {
                 //check if type is present
                 //Windows.UI.Xaml.Controls.NavigationViewItem is supported < 10.0.16299.0\Windows.Foundation.UniversalApiContract\5.0.0.0\Windows.Foundation.UniversalApiContract.winmd
-                var navigationViewItemType = Type.GetType("Windows.UI.Xaml.Controls.NavigationViewItem, Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", false, false);
-                if (navigationViewItemType != null)
+                List<NavigationViewItem> navigationViewItems = new List<NavigationViewItem>();
+                foreach (MenuItem item in menuItems)
                 {
-                    List<NavigationViewItem> navigationViewItems = new List<NavigationViewItem>();
-                    foreach (MenuItem item in menuItems)
-                    {
-                        navigationViewItems.Add(MenuItemToNavigationViewItem(item));
-                    }
-                    return navigationViewItems;
+                    navigationViewItems.Add(MenuItemToNavigationViewItem(item));
                 }
+                return navigationViewItems;
+
             }
             else
             {
