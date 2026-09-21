@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
@@ -69,7 +70,14 @@ jobs:
           name: nupkg
           path: artifacts/*.nupkg
 
-      # Publish to NuGet only for v* tags. Add a repo secret named NUGET_API_KEY.
+      # Publish to NuGet only for v* tags using the configured trusted-publishing policy.
+      - name: NuGet login
+        if: startsWith(github.ref, 'refs/tags/v')
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: mfe
+
       - name: Push to NuGet
         if: startsWith(github.ref, 'refs/tags/v')
-        run: dotnet nuget push "artifacts/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push "artifacts/*.nupkg" --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
