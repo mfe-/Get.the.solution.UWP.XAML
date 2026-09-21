@@ -80,4 +80,11 @@ jobs:
 
       - name: Push to NuGet
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
-        run: dotnet nuget push "artifacts/*.nupkg" --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://www.nuget.org/api/v2/package --skip-duplicate --verbosity normal
+        shell: pwsh
+        run: |
+          $packages = @(Get-ChildItem artifacts -Filter *.nupkg)
+          if ($packages.Count -ne 1) {
+            throw 'Expected exactly one .nupkg file in artifacts.'
+          }
+          $package = $packages[0]
+          dotnet nuget push $package.FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://www.nuget.org/api/v2/package --skip-duplicate --verbosity normal
