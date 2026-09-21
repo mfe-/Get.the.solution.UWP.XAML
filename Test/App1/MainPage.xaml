@@ -54,13 +54,16 @@
                 </contract5Present:TextBox>
             </contract5Present:NavigationView.Content>
         </contract5Present:NavigationView>
-        <TextBlock x:Name="DeviceTyp" Text="" />
-        <TextBox Header="Sample for select all for textboxes" 
+        <StackPanel>
+            <TextBlock Text="{Binding Path=WindowsVersion}" />
+            <TextBlock Text="{Binding Path=BuildNumber}" />
+            <TextBlock x:Name="DeviceTyp" Text="" />
+            <TextBox Header="Sample for select all for textboxes" 
                  Text="sample text"
                  common:OnFocus.SelectAll="True" />
-        <TextBox Header="Sample two for select all for textboxes" 
+            <TextBox Header="Sample two for select all for textboxes" 
                  Text="sample text"
                  common:OnFocus.SelectAll="True" />
-
+        </StackPanel>
     </common:DockPanel>
 </Page>

@@ -33,7 +33,7 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      # Determine the package version: from a v* tag when present, otherwise a CI pre-release.
+      # Version: from a v* tag when present, otherwise CalVer YYYY.MMDD.RUN (valid SemVer).
       - name: Resolve version
         id: version
         shell: pwsh
@@ -41,7 +41,9 @@ jobs:
           if ($env:GITHUB_REF -like 'refs/tags/v*') {
             $v = $env:GITHUB_REF -replace '^refs/tags/v', ''
           } else {
-            $v = "21.1.16-ci.$env:GITHUB_RUN_NUMBER"
+            $now = [DateTime]::UtcNow
+            $mmdd = $now.Month * 100 + $now.Day   # e.g. Sep 21 -> 921, Oct 5 -> 1005 (no leading zero)
+            $v = "$($now.Year).$mmdd.$env:GITHUB_RUN_NUMBER"
           }
           "version=$v" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
           Write-Host "Package version: $v"
@@ -56,8 +58,10 @@ jobs:
           dotnet build ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=x64 --no-restore
           dotnet build ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=arm64 --no-restore
 
+      # Pack an architecture-neutral (AnyCPU/MSIL) assembly so consumers on x86/x64/arm64
+      # don't hit the MSB3270 processor-architecture mismatch warning.
       - name: Pack
-        run: dotnet pack ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=x64 -p:Version=${{ steps.version.outputs.version }} -o artifacts
+        run: dotnet pack ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=AnyCPU -p:Version=${{ steps.version.outputs.version }} -o artifacts
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v4

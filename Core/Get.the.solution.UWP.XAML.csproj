@@ -8,7 +8,7 @@
     <RootNamespace>Get.the.solution.UWP.XAML</RootNamespace>
     <AssemblyName>Get.the.solution.UWP.XAML</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <Platforms>x86;x64;arm64</Platforms>
+    <Platforms>AnyCPU;x86;x64;arm64</Platforms>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
