@@ -1,0 +1,71 @@
+name: build
+
+on:
+  push:
+    branches: [master, main]
+    tags: ['v*']
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: 'true'
+  PROJECT: Core/Get.the.solution.UWP.XAML.csproj
+  CONFIGURATION: Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # Determine the package version: from a v* tag when present, otherwise a CI pre-release.
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          if ($env:GITHUB_REF -like 'refs/tags/v*') {
+            $v = $env:GITHUB_REF -replace '^refs/tags/v', ''
+          } else {
+            $v = "21.1.16-ci.$env:GITHUB_RUN_NUMBER"
+          }
+          "version=$v" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Package version: $v"
+
+      - name: Restore
+        run: dotnet restore ${{ env.PROJECT }}
+
+      # UWP libraries build per-platform; compile all three to catch arch-specific breaks.
+      - name: Build (x86, x64, arm64)
+        run: |
+          dotnet build ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=x86 --no-restore
+          dotnet build ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=x64 --no-restore
+          dotnet build ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=arm64 --no-restore
+
+      - name: Pack
+        run: dotnet pack ${{ env.PROJECT }} -c ${{ env.CONFIGURATION }} -p:Platform=x64 -p:Version=${{ steps.version.outputs.version }} -o artifacts
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nupkg
+          path: artifacts/*.nupkg
+
+      # Publish to NuGet only for v* tags. Add a repo secret named NUGET_API_KEY.
+      - name: Push to NuGet
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: dotnet nuget push "artifacts/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

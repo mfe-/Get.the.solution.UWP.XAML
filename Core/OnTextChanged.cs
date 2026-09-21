@@ -88,40 +88,15 @@ namespace Get.the.solution.UWP.XAML
                     }
                 }
                 KeyEventHandler keyEventHandler = TextBox_PreviewKeyDown;
-                Action<object, object> actionHandler = (s, e) => TextBox_PreviewKeyDown(s, e as KeyRoutedEventArgs);
-                Tuple<Func<object, EventRegistrationToken>, Action<EventRegistrationToken>, Action<object, object>> registerEventFunc = null;
-                
-                if (propertyChangedEventArgs.NewValue is bool b)
-                {
-                    //> Windows 10 15063 doesnt support PreviewKeyDown so we need to register the event with reflection
-                    if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5) &&
-                        textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
-                    {
-                        registerEventFunc = Helper.RegisterEventDynamically(textBox, nameof(TextBox.PreviewKeyDown), actionHandler);
-                        WindowsRuntimeMarshal.AddEventHandler(registerEventFunc.Item1, registerEventFunc.Item2, actionHandler);
-                    }
-                    else
-                    {
-                        textBox.KeyDown += keyEventHandler;
-                    }
 
+                if (propertyChangedEventArgs.NewValue is bool)
+                {
+                    textBox.PreviewKeyDown += keyEventHandler;
                     textBox.LostFocus += TextBox_LostFocus;
                 }
                 else
                 {
-                    if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5) && 
-                        textBox.GetType().GetEvents().Any(a => a.Name == nameof(TextBox.PreviewKeyDown)))
-                    {
-                        //remove handle is untested yet
-                        if (registerEventFunc != null)
-                        {
-                            WindowsRuntimeMarshal.RemoveEventHandler(registerEventFunc.Item2, actionHandler);
-                        }
-                    }
-                    else
-                    {
-                        textBox.KeyDown -= keyEventHandler;
-                    }
+                    textBox.PreviewKeyDown -= keyEventHandler;
                     textBox.LostFocus -= TextBox_LostFocus;
                 }
             }
